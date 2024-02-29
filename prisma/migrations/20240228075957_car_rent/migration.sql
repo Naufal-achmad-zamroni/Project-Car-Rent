@@ -1,0 +1,37 @@
+-- CreateTable
+CREATE TABLE `Admin` (
+    `AdminId` INTEGER NOT NULL AUTO_INCREMENT,
+    `namaAdmin` VARCHAR(191) NOT NULL DEFAULT '',
+    `email` VARCHAR(191) NOT NULL DEFAULT '',
+    `password` VARCHAR(191) NOT NULL DEFAULT '',
+
+    PRIMARY KEY (`AdminId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Car` (
+    `carId` INTEGER NOT NULL AUTO_INCREMENT,
+    `nopol` VARCHAR(191) NOT NULL DEFAULT '',
+    `merkMobil` VARCHAR(191) NOT NULL DEFAULT '',
+    `harga_perhari` INTEGER NOT NULL DEFAULT 0,
+
+    UNIQUE INDEX `Car_nopol_key`(`nopol`),
+    PRIMARY KEY (`carId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Rent` (
+    `rentId` INTEGER NOT NULL AUTO_INCREMENT,
+    `carId` INTEGER NOT NULL,
+    `namaPenyewa` VARCHAR(191) NOT NULL DEFAULT '',
+    `tanggalSewa` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `lamaSewa` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `totalBayar` DECIMAL(65, 30) NOT NULL DEFAULT 0,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`rentId`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Rent` ADD CONSTRAINT `Rent_carId_fkey` FOREIGN KEY (`carId`) REFERENCES `Car`(`carId`) ON DELETE RESTRICT ON UPDATE CASCADE;
